@@ -1,0 +1,106 @@
+{
+  "name": "codechampion-vscode",
+  "displayName": "CodeChampion-vscode",
+  "description": "Plays epic sound clips when you write epic code on Visual Studio Code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.31.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.playVictorySound",
+    "onCommand:extension.playFailSound"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.playVictorySound",
+        "title": "Epic Victory"
+      },
+      {
+        "command": "extension.playFailSound",
+        "title": "Epic Fail"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.playVictorySound",
+        "key": "f7"
+      },
+      {
+        "command": "extension.playFailSound",
+        "key": "f8"
+      }
+    ],
+    "configuration": {
+      "title": "Code Champion",
+      "properties": {
+        "codechampion.victorySoundConfig": {
+          "title": "Victory Sound",
+          "type": "string",
+          "enum": [
+            "Battle without honor or humanity",
+            "Duck hunt theme",
+            "Eye of tiger",
+            "Gangnam style",
+            "Iran national anthem",
+            "La copa de lavida",
+            "Livin la vida locar",
+            "Mitokomon",
+            "Mk finish him",
+            "Mk flawless victory",
+            "Mk laugh",
+            "O fortuna",
+            "Sonic the hedgehog act cleared",
+            "Starwars theme",
+            "Supermariobros stage clear",
+            "Symphony n5",
+            "This is sparta",
+            "We will rock you"
+          ],
+          "default": "Supermariobros stage clear",
+          "description": "Victory Sound"
+        },
+        "codechampion.failSoundConfig": {
+          "title": "Fail Sound",
+          "type": "string",
+          "enum": [
+            "A lannister always pays his debts",
+            "Arrow you have failed",
+            "Chop suey",
+            "Darth vader dont fail me",
+            "Duck hunt laugh",
+            "Homer you tried",
+            "Pulp fiction say what again",
+            "Someone like you",
+            "Supermariobros gameover",
+            "Voldemort your a fool"
+          ],
+          "default": "A lannister always pays his debts",
+          "description": "Fail Sound"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^3.3.1",
+    "vscode": "^1.1.28",
+    "tslint": "^5.12.1",
+    "@types/node": "^10.12.21",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "node-wav-player": "^0.1.0",
+    "path": "^0.12.7"
+  }
+}
