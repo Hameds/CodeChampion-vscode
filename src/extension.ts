@@ -41,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
         .then(() => {
           console.log("The wav file started to be played successfully.");
         })
-        .catch(error => {
+        .catch(error) => {
           console.error(error);
         });
     };
