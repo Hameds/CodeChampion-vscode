@@ -13,37 +13,44 @@ export function activate(context: vscode.ExtensionContext) {
   console.log(
     'Congratulations, your extension "codechampion-vscode" is now active!'
   );
+  function playSound(winOrFail: string) {
+    var isWin = false;
+    if (winOrFail === 'win') isWin = !isWin;
+
+    var configs = vscode.workspace
+    .getConfiguration();
+    
+    var soundFileNameInConfig: string | undefined = " ";
+    soundFileNameInConfig = isWin ? configs.get("codechampion.victorySoundConfig") : configs.get("codechampion.failSoundConfig");
+
+    var soundFileName =
+      soundFileNameInConfig.split(" ").join("_") + ".wav";
+
+    var soundFilePath = path.join(
+      __dirname,
+      "..",
+      "sounds",
+      winOrFail,
+      soundFileName
+    );
+    wavPlayer
+      .play({
+        path: soundFilePath
+      })
+      .then(() => {
+        console.log("The wav file started to be played successfully.");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   let playVictorySound = vscode.commands.registerCommand(
     "extension.playVictorySound",
     () => {
-      var victoryFileNameInConfig: string | undefined = " ";
-      victoryFileNameInConfig = vscode.workspace
-        .getConfiguration()
-        .get("codechampion.victorySoundConfig");
-
-      var victoryFileName =
-        victoryFileNameInConfig.split(" ").join("_") + ".wav";
-      var soundFilePath = path.join(
-        __dirname,
-        "..",
-        "sounds",
-        "win",
-        victoryFileName
-      );
-
       vscode.window.setStatusBarMessage("Congratulations!", 2000);
 
-      wavPlayer
-        .play({
-          path: soundFilePath
-        })
-        .then(() => {
-          console.log("The wav file started to be played successfully.");
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      playSound('win');
     }
   );
 
@@ -51,34 +58,9 @@ export function activate(context: vscode.ExtensionContext) {
   let playFailSound = vscode.commands.registerCommand(
     "extension.playFailSound",
     () => {
-      var failFileNameInConfig: string | undefined = " ";
-      failFileNameInConfig = vscode.workspace
-        .getConfiguration()
-        .get("codechampion.failSoundConfig");
-
-      var failFileName =
-        failFileNameInConfig.split(" ").join("_") + ".wav";
-      var soundFilePath = path.join(
-        __dirname,
-        "..",
-        "sounds",
-        "fail",
-        failFileName
-      );
-
       vscode.window.setStatusBarMessage("It's Ok, Don't worry!", 2000);
 
-      wavPlayer
-        .play({
-          path: soundFilePath
-        })
-        .then(() => {
-          console.log("The wav file started to be played successfully.");
-        })
-        .catch(error => {
-          console.error(error);
-        });
-        
+      playSound('fail');
     }
   );
 
