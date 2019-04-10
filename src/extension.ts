@@ -44,44 +44,54 @@ export function activate(context: vscode.ExtensionContext) {
         .catch(error => {
           console.error(error);
         });
-    };
+    }
+  );
 
 
-    let playFailSound = vscode.commands.registerCommand(
-      "extension.playFailSound",
-      () => {
-        var failFileNameInConfig: string | undefined = " ";
-        failFileNameInConfig = vscode.workspace
-          .getConfiguration()
-          .get("codechampion.failSoundConfig");
-  
-        var failFileName =
-          failFileNameInConfig.split(" ").join("_") + ".wav";
-        var soundFilePath = path.join(
-          __dirname,
-          "..",
-          "sounds",
-          "fail",
-          failFileName
-        );
-  
-        vscode.window.setStatusBarMessage("It's Ok, Don't worry!", 2000);
-  
-        wavPlayer
-          .play({
-            path: soundFilePath
-          })
-          .then(() => {
-            console.log("The wav file started to be played successfully.");
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }
+  let playFailSound = vscode.commands.registerCommand(
+    "extension.playFailSound",
+    () => {
+      var failFileNameInConfig: string | undefined = " ";
+      failFileNameInConfig = vscode.workspace
+        .getConfiguration()
+        .get("codechampion.failSoundConfig");
+
+      var failFileName =
+        failFileNameInConfig.split(" ").join("_") + ".wav";
+      var soundFilePath = path.join(
+        __dirname,
+        "..",
+        "sounds",
+        "fail",
+        failFileName
+      );
+
+      vscode.window.setStatusBarMessage("It's Ok, Don't worry!", 2000);
+
+      wavPlayer
+        .play({
+          path: soundFilePath
+        })
+        .then(() => {
+          console.log("The wav file started to be played successfully.");
+        })
+        .catch(error => {
+          console.error(error);
+        });
+        
+    }
+  );
+
+  let stopSound = vscode.commands.registerCommand(
+    "extension.stopSound",
+    () => {
+      wavPlayer.stop();        
+    }
   );
 
   context.subscriptions.push(playVictorySound);
   context.subscriptions.push(playFailSound);
+  context.subscriptions.push(stopSound);
 
 }
 
