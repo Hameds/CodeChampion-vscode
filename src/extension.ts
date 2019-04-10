@@ -14,8 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
     'Congratulations, your extension "codechampion-vscode" is now active!'
   );
   function playSound(winOrFail: string) {
-    var isWin = false;
-    if (winOrFail === 'win') isWin = !isWin;
+    var isWin = (winOrFail === 'win') ? true : false;
 
     var configs = vscode.workspace
     .getConfiguration();
