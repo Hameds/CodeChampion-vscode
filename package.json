@@ -1,8 +1,13 @@
 {
   "name": "codechampion-vscode",
-  "displayName": "CodeChampion-vscode",
+  "displayName": "Code Champion",
   "description": "Plays epic sound clips when you write epic code on Visual Studio Code",
   "version": "0.0.1",
+  "publisher": "CodeChampion",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hameds/CodeChampion-vscode.git"
+  },
   "engines": {
     "vscode": "^1.31.0"
   },

@@ -14,16 +14,16 @@ export function activate(context: vscode.ExtensionContext) {
     'Congratulations, your extension "codechampion-vscode" is now active!'
   );
   function playSound(winOrFail: string) {
-    var isWin = (winOrFail === 'win');
+    var isWin = winOrFail === "win";
 
-    var configs = vscode.workspace
-    .getConfiguration();
-    
-    var soundFileNameInConfig: string | undefined = " ";
-    soundFileNameInConfig = isWin ? configs.get("codechampion.victorySoundConfig") : configs.get("codechampion.failSoundConfig");
+    var configs = vscode.workspace.getConfiguration();
 
-    var soundFileName =
-      soundFileNameInConfig.split(" ").join("_") + ".wav";
+    var soundFileNameInConfig: any | undefined = " ";
+    soundFileNameInConfig = isWin
+      ? configs.get("codechampion.victorySoundConfig")
+      : configs.get("codechampion.failSoundConfig");
+
+    var soundFileName = soundFileNameInConfig.split(" ").join("_") + ".wav";
 
     var soundFilePath = path.join(
       __dirname,
@@ -38,9 +38,6 @@ export function activate(context: vscode.ExtensionContext) {
       })
       .then(() => {
         console.log("The wav file started to be played successfully.");
-      })
-      .catch(error => {
-        console.error(error);
       });
   }
 
@@ -49,31 +46,26 @@ export function activate(context: vscode.ExtensionContext) {
     () => {
       vscode.window.setStatusBarMessage("Congratulations!", 2000);
 
-      playSound('win');
+      playSound("win");
     }
   );
-
 
   let playFailSound = vscode.commands.registerCommand(
     "extension.playFailSound",
     () => {
       vscode.window.setStatusBarMessage("It's Ok, Don't worry!", 2000);
 
-      playSound('fail');
+      playSound("fail");
     }
   );
 
-  let stopSound = vscode.commands.registerCommand(
-    "extension.stopSound",
-    () => {
-      wavPlayer.stop();        
-    }
-  );
+  let stopSound = vscode.commands.registerCommand("extension.stopSound", () => {
+    wavPlayer.stop();
+  });
 
   context.subscriptions.push(playVictorySound);
   context.subscriptions.push(playFailSound);
   context.subscriptions.push(stopSound);
-
 }
 
 // this method is called when your extension is deactivated
