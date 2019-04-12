@@ -23,6 +23,10 @@
       {
         "command": "extension.playFailSound",
         "title": "Epic Fail"
+      },
+      {
+        "command": "extension.stopSound",
+        "title": "Stop Epic Sound"
       }
     ],
     "keybindings": [
@@ -33,6 +37,10 @@
       {
         "command": "extension.playFailSound",
         "key": "f8"
+      },
+      {
+        "command": "extension.stopSound",
+        "key": "f12"
       }
     ],
     "configuration": {
@@ -49,6 +57,7 @@
             "Iran national anthem",
             "La copa de lavida",
             "Livin la vida locar",
+            "Mellipoushan",
             "Mitokomon",
             "Mk finish him",
             "Mk flawless victory",
