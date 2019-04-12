@@ -20,14 +20,16 @@ export function activate(context: vscode.ExtensionContext) {
   async function playSound(winOrFail: string) {
     let isWin = (winOrFail === 'win');
 
-    let configs = vscode.workspace
-    .getConfiguration();
+    let configs = vscode.workspace.getConfiguration();
     
     let soundFileNameInConfig: any | undefined = " ";
-    soundFileNameInConfig = isWin ? configs.get("codechampion.victorySoundConfig") : configs.get("codechampion.failSoundConfig");
+    soundFileNameInConfig = isWin 
+      ? configs.get("codechampion.victorySoundConfig")
+      : configs.get("codechampion.failSoundConfig");
 
     let soundFileName =
       soundFileNameInConfig.split(" ").join("_") + ".wav";
+
 
     let soundFilePath = path.join(
       __dirname,
@@ -55,6 +57,7 @@ export function activate(context: vscode.ExtensionContext) {
       })
       .catch((error: any) => {
         console.error(error);
+
       });
     return new Promise(resolve => {
       resolve(duration);
@@ -71,7 +74,6 @@ export function activate(context: vscode.ExtensionContext) {
         });      
     }
   );
-
 
   let playFailSound = vscode.commands.registerCommand(
     "extension.playFailSound",
@@ -95,7 +97,6 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(playVictorySound);
   context.subscriptions.push(playFailSound);
   context.subscriptions.push(stopSound);
-
 }
 
 // this method is called when your extension is deactivated
