@@ -13,6 +13,9 @@ export function activate(context: vscode.ExtensionContext) {
   console.log(
     'Congratulations, your extension "codechampion-vscode" is now active!'
   );
+
+  const state = { isPlaying: false };
+
   function playSound(winOrFail: string) {
     var isWin = winOrFail === "win";
 
@@ -22,6 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
     soundFileNameInConfig = isWin
       ? configs.get("codechampion.victorySoundConfig")
       : configs.get("codechampion.failSoundConfig");
+    console.log('object', configs.get("codechampion.victorySoundConfig"))
 
     var soundFileName = soundFileNameInConfig.split(" ").join("_") + ".wav";
 
@@ -32,35 +36,49 @@ export function activate(context: vscode.ExtensionContext) {
       winOrFail,
       soundFileName
     );
+    state.isPlaying = true
     wavPlayer
       .play({
-        path: soundFilePath
+        path: soundFilePath,
+        sync: true
       })
       .then(() => {
+        state.isPlaying = false
         console.log("The wav file started to be played successfully.");
-      });
+      }).catch(() => {
+        state.isPlaying = true
+      })
   }
 
   let playVictorySound = vscode.commands.registerCommand(
     "extension.playVictorySound",
     () => {
-      vscode.window.setStatusBarMessage("Congratulations!", 2000);
+      if (state.isPlaying) {
+        vscode.window.setStatusBarMessage("Stahp pushing that button!", 2000);
+      } else {
+        vscode.window.setStatusBarMessage("Congratulations!", 2000);
 
-      playSound("win");
+        playSound("win");
+      }
     }
   );
 
   let playFailSound = vscode.commands.registerCommand(
     "extension.playFailSound",
     () => {
-      vscode.window.setStatusBarMessage("It's Ok, Don't worry!", 2000);
+      if (state.isPlaying) {
+        vscode.window.setStatusBarMessage("Stahp pushing that button!", 2000);
+      } else {
+        vscode.window.setStatusBarMessage("It's Ok, Don't worry!", 2000);
 
-      playSound("fail");
+        playSound("fail");
+      }
     }
   );
 
   let stopSound = vscode.commands.registerCommand("extension.stopSound", () => {
     wavPlayer.stop();
+    state.isPlaying = false
   });
 
   context.subscriptions.push(playVictorySound);
@@ -69,4 +87,4 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
