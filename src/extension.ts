@@ -76,7 +76,6 @@ export function activate(context: vscode.ExtensionContext) {
         const message = vscode.window.setStatusBarMessage("Stahp pushing that button!", 2000);
         statusMessage.push(message);
       } else {
-        console.log('hey')
         playSound('win')
           .then((duration: any) => {
             const message = vscode.window.setStatusBarMessage("Congratulations!", duration * 1000);
