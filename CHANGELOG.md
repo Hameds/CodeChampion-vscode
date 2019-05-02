@@ -1,7 +1,11 @@
-# Change Log
-All notable changes to the "codechampion-vscode" extension will be documented in this file.
+### 0.0.3
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+- change status Message timeout based on current song duration
 
-## [Unreleased]
-- Initial release
+### 0.0.2
+
+- fix multiple hitting of the button results in multiple simultaneous songs!
+
+### 0.0.1
+
+- Initial Release

@@ -2,7 +2,7 @@
   "name": "codechampion-vscode",
   "displayName": "Code Champion",
   "description": "Plays epic sound clips when you write epic code on Visual Studio Code",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "CodeChampion",
   "repository": {
     "type": "git",
