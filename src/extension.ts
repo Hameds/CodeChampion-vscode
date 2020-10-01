@@ -38,7 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
       "..",
       "sounds",
       winOrFail,
-      soundFileName
+      soundFileName.toLowerCase()
     );
 
     let duration:number | undefined;
